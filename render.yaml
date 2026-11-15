@@ -5,6 +5,7 @@ services:
     name: safar-bus-booking
     runtime: node
     plan: free
+    region: singapore
     buildCommand: npm install --include=dev && npm run build
     startCommand: node server/dist/src/server.js
     healthCheckPath: /api/v1/health
