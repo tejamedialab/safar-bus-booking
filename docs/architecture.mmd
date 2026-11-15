@@ -1,0 +1,24 @@
+flowchart TB
+  subgraph Browser["Browser · React + Vite"]
+    P[Passenger pages<br/>search · seats · checkout · ticket]
+    C[Operations console<br/>dashboard · manifest · reports]
+  end
+  subgraph API["Node.js · Express modular monolith"]
+    MW[Middleware<br/>request id · session · RBAC · error shape]
+    R[routes.ts<br/>HTTP + Zod validation]
+    subgraph S[Services · business rules]
+      INV[inventory<br/>search · seat map · holds]
+      BK[bookings<br/>confirm · cancel · refunds]
+      NET[network<br/>routes · schedules · trips]
+      FL[fleet<br/>operators · buses · layouts · policy]
+      REP[reports<br/>manifest · occupancy · reconciliation]
+      AU[audit]
+    end
+    D[domain/<br/>pure rules: pricing · cancellation tiers<br/>state machines · PNR · layout generator]
+    OA[OpenAPI from the same Zod schemas<br/>/api/docs]
+  end
+  DB[(PostgreSQL 16<br/>constraints · exclusion · triggers)]
+  P & C -->|JSON over /api/v1, httpOnly cookie| MW --> R --> S
+  S --> D
+  S -->|one transaction per action| DB
+  R -.-> OA

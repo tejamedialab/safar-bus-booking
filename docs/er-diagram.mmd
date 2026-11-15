@@ -1,0 +1,93 @@
+erDiagram
+    CANCELLATION_POLICIES ||--o{ OPERATORS : "governs"
+    OPERATORS ||--o{ USERS : "employs (role OPERATOR)"
+    OPERATORS ||--o{ BUSES : owns
+    OPERATORS ||--o{ ROUTES : runs
+    OPERATORS ||--o{ SEAT_LAYOUTS : "custom layouts"
+    SEAT_LAYOUTS ||--|{ LAYOUT_SEATS : contains
+    SEAT_LAYOUTS ||--o{ BUSES : "fitted to"
+    CITIES ||--o{ ROUTE_STOPS : "located in"
+    ROUTES ||--|{ ROUTE_STOPS : "ordered stops"
+    ROUTES ||--o{ SCHEDULES : "timetabled by"
+    BUSES ||--o{ SCHEDULES : "assigned to"
+    SCHEDULES ||--o{ TRIPS : "generates (one per date)"
+    TRIPS ||--o{ SEAT_HOLDS : "short-lived holds"
+    TRIPS ||--o{ BOOKINGS : "has"
+    USERS ||--o{ BOOKINGS : makes
+    BOOKINGS ||--|{ TICKETS : "one per seat"
+    BOOKINGS ||--o{ REFUNDS : "refunded by"
+    REFUNDS ||--o{ TICKETS : "covers"
+    LAYOUT_SEATS ||--o{ TICKETS : "seat (composite FK)"
+    USERS ||--o{ IDEMPOTENCY_KEYS : sends
+    USERS ||--o{ AUDIT_LOGS : "acts in"
+
+    OPERATORS { uuid id PK
+      text code UK "PNR prefix"
+      uuid cancellation_policy_id FK }
+    CANCELLATION_POLICIES { uuid id PK
+      jsonb rules "tiers: hours -> refund %" }
+    USERS { uuid id PK
+      text email UK
+      user_role role "ADMIN | OPERATOR | PASSENGER"
+      uuid operator_id FK "required iff OPERATOR (CHECK)" }
+    SEAT_LAYOUTS { uuid id PK
+      smallint decks
+      smallint grid_rows
+      smallint grid_cols }
+    LAYOUT_SEATS { uuid layout_id PK
+      text label PK
+      seat_type seat_type
+      numeric fare_factor }
+    BUSES { uuid id PK
+      text registration_no UK
+      bus_type bus_type
+      uuid seat_layout_id FK }
+    CITIES { int id PK
+      text name UK }
+    ROUTES { uuid id PK
+      text code "UK per operator" }
+    ROUTE_STOPS { uuid route_id PK
+      smallint stop_order PK
+      int arrival_offset_min
+      int departure_offset_min
+      int distance_km
+      int cumulative_fare_paise }
+    SCHEDULES { uuid id PK
+      time departure_time
+      smallint_arr days_of_week
+      numeric fare_multiplier }
+    TRIPS { uuid id PK
+      date service_date "UK with schedule_id"
+      timestamptz departs_at
+      timestamptz arrives_at
+      trip_status status
+      uuid seat_layout_id "snapshot" }
+    SEAT_HOLDS { uuid id PK
+      uuid hold_token
+      text seat_label
+      int4range segment "EXCLUDE overlap"
+      timestamptz expires_at }
+    BOOKINGS { uuid id PK
+      text pnr UK
+      uuid hold_token UK "hold converts once"
+      booking_status status
+      int total_fare_paise
+      jsonb policy_snapshot }
+    TICKETS { uuid id PK
+      text seat_label
+      int4range segment "EXCLUDE overlap WHERE CONFIRMED"
+      text passenger_name
+      ticket_status status
+      int fare_paise }
+    REFUNDS { uuid id PK
+      int amount_paise
+      smallint percent
+      refund_status status }
+    IDEMPOTENCY_KEYS { uuid user_id PK
+      text key PK
+      text request_hash
+      jsonb response_body }
+    AUDIT_LOGS { bigint id PK
+      text action
+      text entity_id
+      jsonb details "append-only (trigger)" }

@@ -1,0 +1,71 @@
+
+ RUN  v2.1.8 /home/claude/safar/server
+
+ ✓ test/api/reports-and-security.test.ts > Acceptance 5 — manifest & occupancy reconcile with confirmed tickets > manifest lists exactly the confirmed tickets, grouped by boarding point
+ ✓ test/api/reports-and-security.test.ts > Acceptance 5 — manifest & occupancy reconcile with confirmed tickets > occupancy is computed per leg and matches the tickets
+ ✓ test/api/reports-and-security.test.ts > Acceptance 5 — manifest & occupancy reconcile with confirmed tickets > reconciliation report passes every check
+ ✓ test/api/reports-and-security.test.ts > Acceptance 5 — manifest & occupancy reconcile with confirmed tickets > every seeded trip reconciles too
+ ✓ test/api/reports-and-security.test.ts > Acceptance 5 — manifest & occupancy reconcile with confirmed tickets > exports the manifest as CSV with formula-injection protection
+ ✓ test/api/reports-and-security.test.ts > Acceptance 5 — manifest & occupancy reconcile with confirmed tickets > booking summary totals add up (net = gross − refunds)
+ ✓ test/api/reports-and-security.test.ts > Authorization is enforced on the server (not just hidden in the UI) > anonymous users cannot hold seats or list bookings (401)
+ ✓ test/api/reports-and-security.test.ts > Authorization is enforced on the server (not just hidden in the UI) > passengers cannot reach staff endpoints (403)
+ ✓ test/api/reports-and-security.test.ts > Authorization is enforced on the server (not just hidden in the UI) > operators cannot create operators (admin only)
+ ✓ test/api/reports-and-security.test.ts > Authorization is enforced on the server (not just hidden in the UI) > an operator cannot read another operator's manifest, routes or policy
+ ✓ test/api/reports-and-security.test.ts > Authorization is enforced on the server (not just hidden in the UI) > a passenger cannot see or cancel another passenger's booking (404, no PNR probing)
+ ✓ test/api/reports-and-security.test.ts > Authorization is enforced on the server (not just hidden in the UI) > a forged/expired token is treated as anonymous
+ ✓ test/api/reports-and-security.test.ts > Authorization is enforced on the server (not just hidden in the UI) > login does not reveal whether an email exists
+ ✓ test/api/reports-and-security.test.ts > Authorization is enforced on the server (not just hidden in the UI) > registration validates input and rejects duplicate emails
+ ✓ test/api/reports-and-security.test.ts > Audit trail > records material actions and cannot be edited or deleted
+ ✓ test/api/reports-and-security.test.ts > Audit trail > operators only see their own audit entries
+ ✓ test/api/reports-and-security.test.ts > API error contract > malformed JSON → 400 MALFORMED_JSON with requestId
+ ✓ test/api/reports-and-security.test.ts > API error contract > unknown route → 404 ROUTE_NOT_FOUND; unknown id → 404 NOT_FOUND; bad uuid → 400
+ ✓ test/api/reports-and-security.test.ts > API error contract > serves an OpenAPI document generated from the validation schemas
+ ✓ test/api/cancellation.test.ts > Acceptance 4 — cancellation, refund rule and seat release > 30h before departure → 75% tier: refund PENDING for 75%, seat becomes AVAILABLE again
+ ✓ test/api/cancellation.test.ts > Acceptance 4 — cancellation, refund rule and seat release > 60h before departure → 90% tier
+ ✓ test/api/cancellation.test.ts > Acceptance 4 — cancellation, refund rule and seat release > partial cancellation cancels only the chosen ticket and marks the booking PARTIALLY_CANCELLED
+ ✓ test/api/cancellation.test.ts > Acceptance 4 — cancellation, refund rule and seat release > two simultaneous cancel requests produce exactly one refund
+ ✓ test/api/cancellation.test.ts > Acceptance 4 — cancellation, refund rule and seat release > inside the closed window (< 3h) cancellation is refused and the seat stays booked
+ ✓ test/api/cancellation.test.ts > Acceptance 4 — cancellation, refund rule and seat release > uses the policy snapshot taken at booking time, not the policy edited later
+ ✓ test/api/cancellation.test.ts > Acceptance 4 — cancellation, refund rule and seat release > rejects an invalid policy (refund rising as departure approaches)
+ ✓ test/api/cancellation.test.ts > Refund state machine (simulated gateway) > PENDING → PROCESSED is allowed; PROCESSED → FAILED is rejected; FAILED needs a note
+ ✓ test/api/cancellation.test.ts > Trip lifecycle > operator cancelling a trip cancels every ticket with a 100% refund and blocks new bookings
+ ✓ test/api/cancellation.test.ts > Trip lifecycle > cannot jump SCHEDULED → COMPLETED, cannot mark DEPARTED hours early
+ ✓ test/api/cancellation.test.ts > Trip lifecycle > booking closes 30 minutes before boarding
+ ✓ test/api/concurrency.test.ts > Acceptance 2 — seat integrity under concurrency > 20 users racing to HOLD the same seat: exactly one wins, 19 get 409 314ms
+ ✓ test/api/concurrency.test.ts > Acceptance 2 — seat integrity under concurrency > 10 users racing the FULL hold → confirm flow: exactly one confirmed ticket exists
+ ✓ test/api/concurrency.test.ts > Acceptance 2 — seat integrity under concurrency > the database itself refuses a double booking even if the application checks are bypassed
+ ✓ test/api/concurrency.test.ts > Duplicate requests and stale holds > 10 simultaneous retries with the same Idempotency-Key create ONE booking and all get the same PNR
+ ✓ test/api/concurrency.test.ts > Duplicate requests and stale holds > reusing an Idempotency-Key with a different body is rejected (422)
+ ✓ test/api/concurrency.test.ts > Duplicate requests and stale holds > a hold cannot be converted twice (new key, same hold) → 409 with the original PNR
+ ✓ test/api/concurrency.test.ts > Duplicate requests and stale holds > an expired hold cannot be confirmed (410) and its seat is free for others
+ ✓ test/api/concurrency.test.ts > Duplicate requests and stale holds > a user cannot confirm someone else's hold
+ ✓ test/api/concurrency.test.ts > Duplicate requests and stale holds > requires an Idempotency-Key header
+ ✓ test/api/booking-flow.test.ts > Acceptance 1 & 3 — search, hold, book, ticket > runs the complete passenger journey and the PNR shows the right details
+ ✓ test/api/booking-flow.test.ts > Acceptance 1 & 3 — search, hold, book, ticket > re-sells the same seat for a NON-overlapping segment (stop-to-stop inventory)
+ ✓ test/api/booking-flow.test.ts > Acceptance 1 & 3 — search, hold, book, ticket > validates search input and returns predictable errors
+ ✓ test/api/booking-flow.test.ts > Acceptance 1 & 3 — search, hold, book, ticket > rejects a reversed boarding/drop segment and unknown seats
+ ✓ test/api/booking-flow.test.ts > Acceptance 1 & 3 — search, hold, book, ticket > requires passenger seats to match the hold exactly
+ ✓ test/unit/domain.test.ts > pricing > charges the difference of cumulative fares for a segment
+ ✓ test/unit/domain.test.ts > pricing > rejects reversed or unknown segments
+ ✓ test/unit/domain.test.ts > pricing > applies trip multiplier and seat factor, rounded to whole rupees
+ ✓ test/unit/domain.test.ts > cancellation policy > 72 hours before departure → allowed=true, refund=90%
+ ✓ test/unit/domain.test.ts > cancellation policy > 48 hours before departure → allowed=true, refund=90%
+ ✓ test/unit/domain.test.ts > cancellation policy > 47.9 hours before departure → allowed=true, refund=75%
+ ✓ test/unit/domain.test.ts > cancellation policy > 24 hours before departure → allowed=true, refund=75%
+ ✓ test/unit/domain.test.ts > cancellation policy > 13 hours before departure → allowed=true, refund=50%
+ ✓ test/unit/domain.test.ts > cancellation policy > 3 hours before departure → allowed=true, refund=25%
+ ✓ test/unit/domain.test.ts > cancellation policy > 2.99 hours before departure → allowed=false, refund=0%
+ ✓ test/unit/domain.test.ts > cancellation policy > -1 hours before departure → allowed=false, refund=0%
+ ✓ test/unit/domain.test.ts > cancellation policy > rounds refunds down so we never over-refund
+ ✓ test/unit/domain.test.ts > cancellation policy > validates rule sets: unique thresholds and non-increasing refunds
+ ✓ test/unit/domain.test.ts > state machines > allows only the documented trip transitions
+ ✓ test/unit/domain.test.ts > state machines > allows only the documented refund transitions
+ ✓ test/unit/domain.test.ts > PNR > has operator prefix + 8 unambiguous characters
+ ✓ test/unit/domain.test.ts > seat layout generator > builds a 2+1 double-deck sleeper with L/U labels and an empty aisle
+ ✓ test/unit/domain.test.ts > seat layout generator > numbers seater seats 1..N
+
+ Test Files  5 passed (5)
+      Tests  62 passed (62)
+   Start at  18:04:51
+   Duration  5.62s (transform 337ms, setup 0ms, collect 1.13s, tests 2.44s, environment 1ms, prepare 253ms)
+

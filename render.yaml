@@ -1,0 +1,21 @@
+# Render free-tier blueprint (no paid services). Pair with a free Neon Postgres database:
+# set DATABASE_URL to the Neon connection string and DATABASE_SSL=true in the Render dashboard.
+services:
+  - type: web
+    name: safar-bus-booking
+    runtime: node
+    plan: free
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: node server/dist/src/server.js
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_SSL
+        value: "true"
+      - key: SEED_ON_EMPTY
+        value: "true"
