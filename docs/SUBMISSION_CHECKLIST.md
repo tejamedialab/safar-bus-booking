@@ -11,14 +11,14 @@ Fill in the blanks marked ⟨…⟩. Verify every link in an incognito window be
 | University email | ⟨your LPU email⟩ |
 | Internship role | Full-Stack Web Development |
 | Assigned project title | Bus Booking Management System |
-| Repository URL | ⟨https://github.com/…/safar-bus-booking⟩ (public, or add the reviewer as collaborator) |
+| Repository URL | https://github.com/tejamedialab/safar-bus-booking |
 | Primary branch | `main` |
 | Final commit ID | ⟨output of `git rev-parse HEAD` after your last push⟩ |
 | Video link (3–5 min) | ⟨Drive/YouTube unlisted link⟩ |
-| Live demo URL | ⟨Render URL⟩ — or declare: "Local-only demo; exact steps in README (`docker compose up --build`)" |
+| Live demo URL | https://safar-bus-booking-c7n1.onrender.com |
 | Technical report | `docs/TECHNICAL_REPORT.md` (link to it on GitHub) |
 | Architecture / schema diagram | `docs/architecture.png`, `docs/er-diagram.svg` |
-| API documentation | `/api/docs` on the live demo, and `docs/openapi.json` in the repo |
+| API documentation | https://safar-bus-booking-c7n1.onrender.com/api/docs, and `docs/openapi.json` in the repo |
 | Test/demo accounts | admin@safar.dev / Admin@12345 · ops.deccan@safar.dev / Operator@12345 · ravi@example.com / Passenger@12345 (all dummy) |
 | Technology stack | React 18 + TypeScript + Vite + TanStack Query; Node.js + Express 5 + TypeScript + Zod; PostgreSQL 16; Vitest + Supertest; Docker; GitHub Actions |
 | Setup notes | `npm install` → `cp .env.example server/.env` → `npm run db:reset` → `npm run dev`; or `docker compose up --build` |

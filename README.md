@@ -2,6 +2,8 @@
 
 Full-stack web application for an intercity bus business: operators set up fleet, routes, schedules and fares; passengers search, pick seats and book **for any stretch of a route**; staff run manifests, occupancy, refunds and reports — with seat integrity guaranteed by the database, not just the UI.
 
+> **Live demo:** https://safar-bus-booking-c7n1.onrender.com · **API docs:** https://safar-bus-booking-c7n1.onrender.com/api/docs (free tier — first load after idle can take ~50 s)
+>
 > **Candidate:** Eslavath Kalyan · **Reg. no.:** 12302317 · **Role:** Full-Stack Web Development · **Project:** Bus Booking Management System
 
 ![Search](docs/screenshots/01-home.png)
